@@ -5,13 +5,14 @@ O projeto é um clone da Netflix desenvolvido para fins de estudo, com foco na i
 
 <br>
 
+📄 Funcionalidades
+--- 
+- Navegação intuitiva  
+- Integração com TMDb API
+
+<br>
+
 🌐 Visualize o projeto
 ---
 👉 [Clique aqui para acessar](https://joaogallindo.github.io/Clone-Netflix/)
 
-<br>
-
-📄 Funcionalidades
---- 
-- Navegação intuitiva  
-- Integração com TMDb API 
