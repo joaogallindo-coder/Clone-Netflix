@@ -14,5 +14,5 @@ O projeto é um clone da Netflix desenvolvido para fins de estudo, com foco na i
 
 🌐 Visualize o projeto
 ---
-👉 [Clique aqui para acessar](https://joaogallindo.github.io/Clone-Netflix/)
+👉 [Clique aqui para acessar](https://joaogallindo-coder.github.io/Clone-Netflix/)
 
