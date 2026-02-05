@@ -42,7 +42,7 @@ body {
 
 .logo {
     color: var(--red);
-    font-size: 33px;
+    font-size: 30px;
     font-weight: bold;
     text-decoration: none;
     user-select: none;
@@ -95,67 +95,49 @@ body {
     width: 100%;
     height: 100%;
     background: linear-gradient(to top, var(--black) 10%, transparent 90%);
-    display: flex;
-    align-items: flex-end; /* Alinha conteúdo no final para evitar sobreposição com logo */
 }
 
 .featured--horizontal {
     width: 100%;
-    padding: 100px 30px 150px 30px; /* Aumentei padding-top para descer conteúdo */
+    height: 100%;
     background: linear-gradient(to right, var(--black) 30%, transparent 70%);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 70px 30px 150px 30px;
 }
 
-/* AJUSTE CRÍTICO: Título Dinâmico - EVITANDO INTERFERÊNCIAS */
+/* AJUSTE SOLICITADO: Título Dinâmico */
 .featured--name {
-    font-size: clamp(2.5rem, 4.5vw, 4.5rem); /* Reduzi o máximo para 72px */
+    font-size: clamp(2.5rem, 5vw, 5.625rem); /* 40px a 90px */
     font-weight: 900;
-    line-height: 1.05; /* Linha mais compacta para evitar espaçamento excessivo */
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.9);
+    margin-bottom: 20px;
+    line-height: 1.1;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     
-    /* Controle de tamanho e espaçamento */
-    max-width: 55%; /* Reduzi para 55% para evitar sobreposição com imagem */
-    margin-bottom: 15px; /* Reduzi margem inferior */
-    
-    /* Controle de quebra de texto - mais agressivo para títulos longos */
-    display: block;
-    word-wrap: break-word;
+    /* Redução dinâmica de fonte para títulos longos */
     overflow-wrap: break-word;
+    word-wrap: break-word;
     hyphens: auto;
     
-    /* Altura dinâmica com limite */
-    height: auto;
-    min-height: 50px;
-    max-height: 25vh; /* Reduzi altura máxima */
+    /* Limite de largura para não sobrepor imagem */
+    max-width: 60%;
     
-    /* Ajuste dinâmico baseado no comprimento do texto */
-    font-size-adjust: 0.5;
+    /* Controle de altura máxima e overflow */
+    max-height: 40%;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limita a 3 linhas */
+    -webkit-box-orient: vertical;
     
-    /* Garantir que o texto sempre fique visível */
-    overflow: visible;
-    text-overflow: clip;
-    white-space: normal;
-    
-    /* Espaçamento interno reduzido */
-    padding: 2px 0;
-    
-    /* Se o título for muito longo, reduz ainda mais o tamanho da fonte */
-    font-size: min(4.5rem, calc(3rem + 1vw)); /* Fórmula mais conservadora */
-}
-
-/* Container das informações (nota, ano) - melhor posicionamento */
-.featured--info-container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 20px;
+    /* Transição suave para redimensionamento */
+    transition: font-size 0.3s ease;
 }
 
 .featured--info {
-    font-size: 1.125rem;
+    font-size: 1.125rem; /* 18px */
     font-weight: bold;
+    margin-bottom: 20px;
     display: flex;
     gap: 15px;
     align-items: center;
@@ -165,31 +147,28 @@ body {
 
 .featured--points { 
     color: #46d369; 
-    background-color: rgba(0, 0, 0, 0.3);
-    padding: 2px 8px;
-    border-radius: 3px;
 }
 
 .featured--description {
-    font-size: clamp(0.875rem, 1.8vw, 1.125rem); /* Reduzi o máximo para 18px */
+    font-size: clamp(0.875rem, 2vw, 1.25rem); /* 14px a 20px */
     color: #e5e5e5;
-    max-width: 45%; /* Aumentei um pouco para melhor leitura */
+    max-width: 40%; 
     min-width: 300px;
-    line-height: 1.5; /* Linha mais compacta */
-    margin-bottom: 20px; /* Margem reduzida */
+    line-height: 1.6;
+    margin-bottom: 25px;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
     
     /* Reticências para textos longos */
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 4; /* Reduzi para 4 linhas */
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
 }
 
 /* Botões */
 .featured--buttons {
-    margin-top: 10px; /* Margem superior para separar da descrição */
+    margin-bottom: 30px;
     display: flex;
     gap: 15px;
     flex-wrap: wrap;
@@ -199,15 +178,15 @@ body {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.125rem; /* Reduzi para 18px */
+    font-size: 1.25rem; /* 20px */
     font-weight: bold;
-    padding: 10px 25px; /* Padding reduzido */
+    padding: 12px 30px;
     border-radius: 4px;
     text-decoration: none;
     transition: all 0.2s ease;
     border: none;
     cursor: pointer;
-    min-height: 40px; /* Altura mínima reduzida */
+    min-height: 44px; /* Melhor acessibilidade em mobile */
 }
 
 .btn-watch {
@@ -230,7 +209,7 @@ body {
 
 /* --- LISTAS E CARDS --- */
 .lists {
-    margin-top: -80px; /* Reduzi o negativo para subir menos */
+    margin-top: -100px;
     z-index: 99;
     position: relative;
     padding-bottom: 50px;
@@ -243,7 +222,7 @@ body {
 
 .movieRow h2 {
     margin: 0 0 15px 30px;
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* 24px */
     font-weight: 700;
 }
 
@@ -287,65 +266,15 @@ body {
     z-index: 99;
 }
 
-/* --- AJUSTES ESPECÍFICOS PARA DESKTOP --- */
-@media (min-width: 1025px) {
-    .featured--horizontal {
-        padding-top: 120px; /* Mais espaço no topo para evitar logo */
-        padding-bottom: 120px;
-    }
-    
-    .featured--name {
-        /* Fórmula mais inteligente: quanto mais longo o texto, menor a fonte */
-        font-size: min(4rem, calc(2.5rem + 1vw - 0.1rem * var(--text-length, 0)));
-        max-width: 50%; /* Mais estreito em desktop */
-        margin-bottom: 12px;
-        max-height: 20vh;
-    }
-    
-    .featured--description {
-        max-width: 40%;
-        font-size: 1rem;
-        line-height: 1.4;
-        margin-bottom: 15px;
-    }
-    
-    .featured--info {
-        font-size: 1rem;
-    }
-}
-
 /* --- RESPONSIVIDADE --- */
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
     .featured--name {
-        max-width: 60%;
-        font-size: clamp(2.2rem, 4vw, 3.5rem);
+        max-width: 70%;
+        font-size: clamp(2rem, 4vw, 4rem);
     }
     
     .featured--description {
         max-width: 50%;
-    }
-}
-
-@media (max-width: 1024px) {
-    .featured--name {
-        max-width: 65%;
-        font-size: clamp(2rem, 3.8vw, 3.2rem);
-    }
-    
-    .featured--vertical {
-        align-items: center; /* Centraliza verticalmente em tablets */
-    }
-}
-
-@media (max-width: 900px) {
-    .featured--name {
-        max-width: 75%;
-        font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-        max-height: 22vh;
-    }
-    
-    .featured--description {
-        max-width: 60%;
     }
 }
 
@@ -357,40 +286,36 @@ body {
     .featured--horizontal {
         background: linear-gradient(to top, var(--black) 20%, rgba(0,0,0,0.6) 80%);
         justify-content: flex-end;
-        padding: 100px 20px 80px;
+        padding: 70px 20px 80px;
         align-items: flex-start;
     }
     
-    /* TÍTULO EM MOBILE */
     .featured--name {
-        font-size: clamp(1.6rem, 5vw, 2.2rem);
+        font-size: clamp(1.75rem, 6vw, 2.5rem); /* 28px a 40px */
         max-width: 100%;
-        max-height: 20vh;
-        margin-bottom: 10px;
-        line-height: 1.1;
+        -webkit-line-clamp: 2; /* Reduz para 2 linhas em mobile */
     }
     
     .featured--description {
-        font-size: 0.95rem;
+        font-size: 1rem; /* 16px */
         max-width: 100%;
         min-width: unset;
         margin-right: 20px;
         -webkit-line-clamp: 3;
-        line-height: 1.4;
     }
     
     .featured--info {
-        font-size: 0.95rem;
+        font-size: 1rem;
     }
     
     .btn-watch, .btn-list {
-        font-size: 0.95rem;
-        padding: 8px 18px;
-        min-height: 36px;
+        font-size: 1rem; /* 16px */
+        padding: 10px 20px;
+        min-height: 40px;
     }
     
     .movieRow h2 {
-        font-size: 1.125rem;
+        font-size: 1.125rem; /* 18px */
         margin-left: 20px;
     }
     
@@ -403,44 +328,27 @@ body {
     }
 }
 
-@media (max-width: 600px) {
-    .featured--name {
-        font-size: clamp(1.4rem, 4.5vw, 1.8rem);
-        max-height: 18vh;
-        margin-bottom: 8px;
-    }
-    
-    .featured--description {
-        font-size: 0.875rem;
-        -webkit-line-clamp: 2; /* Apenas 2 linhas em mobile pequeno */
-    }
-}
-
 @media (max-width: 480px) {
     .featured {
         min-height: 500px;
     }
     
     .featured--horizontal {
-        padding-top: 80px;
         padding-bottom: 60px;
     }
     
     .featured--name {
-        font-size: 1.3rem;
-        max-height: 15vh;
-        margin-bottom: 6px;
+        font-size: 1.5rem; /* 24px */
+        margin-bottom: 15px;
     }
     
     .featured--buttons {
-        gap: 8px;
-        flex-direction: column; /* Botões empilhados em mobile muito pequeno */
+        gap: 10px;
     }
     
     .btn-watch, .btn-list {
         width: 100%;
         justify-content: center;
-        font-size: 0.9rem;
     }
     
     .movieRow--item {
@@ -448,26 +356,26 @@ body {
     }
     
     .nav-links {
-        gap: 8px;
+        gap: 10px;
     }
     
     .nav-links li a {
-        font-size: 11px;
+        font-size: 12px;
     }
 }
 
 /* --- RODAPÉ (Footer) --- */
 footer {
-    margin: 40px 0 20px;
+    margin: 50px 0;
     text-align: center;
     padding: 0 20px 20px;
 }
 
 footer p {
-    margin: 8px 0;
-    font-size: 0.8rem;
+    margin: 10px 0;
+    font-size: 0.875rem; /* 14px */
     color: #999;
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 /* Melhorias para acessibilidade e foco */
@@ -477,23 +385,11 @@ button:focus {
     outline-offset: 2px;
 }
 
-/* Classe específica para títulos muito longos (será adicionada via JavaScript se necessário) */
-.featured--name.long-title {
-    font-size: clamp(1.8rem, 3.5vw, 3rem) !important;
-    max-width: 45% !important;
-    line-height: 1 !important;
-}
-
 /* Suporte para telas muito largas */
-@media (min-width: 1600px) {
+@media (min-width: 1920px) {
     .featured--horizontal {
         padding-left: 5%;
         padding-right: 5%;
-    }
-    
-    .featured--name {
-        max-width: 45%;
-        font-size: clamp(2.5rem, 3vw, 3.5rem);
     }
     
     .movieRow h2 {
@@ -503,22 +399,5 @@ button:focus {
     .movieRow--listarea {
         padding-left: 5%;
         padding-right: 5%;
-    }
-}
-
-/* Para evitar sobreposição com a logo em telas altas mas estreitas */
-@media (max-height: 800px) and (min-width: 768px) {
-    .featured--vertical {
-        align-items: flex-start; /* Alinha no topo para telas curtas */
-    }
-    
-    .featured--horizontal {
-        padding-top: 90px;
-        padding-bottom: 80px;
-    }
-    
-    .featured--name {
-        max-height: 18vh;
-        font-size: clamp(2rem, 3.5vw, 3rem);
     }
 }
