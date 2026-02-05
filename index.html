@@ -3,35 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clone-Netflix</title>
-    <link rel="icon" type="image/svg+xml" href="faviconNetflix.png">
+    <title>Netflix Clone - Visualização Estática</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="navbar">
-        <div class="logo">
-            <a href="#">Pobreflix</a>
-        </div>
-        <nav>
-            <a onclick="aba()" href="#">Início</a>
-            <a onclick="aba()" href="#">Séries</a>
-            <a onclick="aba()" href="#">Filmes</a>
-            <a onclick="aba()" href="#">Minha Lista</a>
+    
+    <header class="navbar" id="navbar">
+        <h1 class="logo-container">
+            <a href="" aria-label="Netflix Início" class="logo">NETFLIX</a>
+        </h1>
+        
+        <nav role="navigation" aria-label="Menu Principal">
+            <ul class="nav-links">
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Séries</a></li>
+                <li><a href="#">Filmes</a></li>
+                <li><a href="#">Bombando</a></li>
+                <li><a href="#">Minha Lista</a></li>
+            </ul>
         </nav>
-        <div class="profile">
-            <img src="https://cdn-icons-png.flaticon.com/512/17/17004.png" alt="Ícone de perfil">
+        
+        <div class="user-profile">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" alt="Perfil">
         </div>
     </header>
 
-    <section class="content">
-        <h2>Populares no PobreFlix</h2>
-        <div class="movie-grid" id="movie-grid">
-            
+    <section class="featured" id="featured">
+        <div class="featured--vertical">
+            <div class="featured--horizontal">
+                <h2 class="featured--name" id="featured-title">Carregando...</h2>
+                
+                <div class="featured--info">
+                    <span class="featured--points" id="featured-score">-- pontos</span>
+                    <span class="featured--year" id="featured-year">--</span>
+                </div>
+                
+                <p class="featured--description" id="featured-desc">
+                    Carregando descrição...
+                </p>
+                
+                <div class="featured--buttons">
+                    <a href="#" class="btn-watch" aria-label="Assistir ao filme">► Assistir</a>
+                    <a href="#" class="btn-list" aria-label="Adicionar à lista">+ Minha Lista</a>
+                </div>
+            </div>
         </div>
     </section>
+
+    <main class="lists" id="lists">
+        </main>
+
+<footer>
+    <p>Feito com <span role="img" aria-label="coração">❤️</span> para fins educacionais.</p>
+    <p>Direitos de imagem para Netflix | Dados pegos do site Themoviedb.org</p>
+</footer>
 
     <script src="script.js"></script>
 </body>
 </html>
-
-
