@@ -133,10 +133,28 @@ body {
     align-items: center;
 }
 
-.btn-watch { background-color: #fff; color: #000; }
-.btn-watch:hover { opacity: 0.8; }
-.btn-list { background-color: rgba(109, 109, 110, 0.7); color: #fff; }
-.btn-list:hover { background-color: rgba(109, 109, 110, 0.4); }
+
+/* Estilo base do botão */
+  .btn-watch {
+    display: inline-flex;     /* Alinha ícone e texto horizontalmente */
+    align-items: center;      /* Centraliza verticalmente */
+    gap: 8px;                 /* Espaço entre o ícone e o texto */
+    text-decoration: none;    /* Remove sublinhado padrão de links */
+    font-size: 16px;          /* Exemplo de tamanho (pode mudar que o ícone acompanha) */
+    color: #000;              /* Cor do texto */
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: color 0.3s;
+  }
+
+  /* Estilo do ícone SVG */
+  .btn-watch svg {
+    width: 1em;              /* Largura igual ao tamanho da fonte atual */
+    height: 1em;             /* Altura igual ao tamanho da fonte atual */
+    fill: currentColor;      /* O ícone herda a cor do texto do pai */
+    flex-shrink: 0;          /* Impede que o ícone amasse se o texto for longo */
+  }
 
 /* --- Listas e Carrosséis (Ajustes de Visibilidade e Tamanho) --- */
 .lists {
@@ -257,3 +275,4 @@ footer {
         transform: scale(1.02); 
     }
 }
+
