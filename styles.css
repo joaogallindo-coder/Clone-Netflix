@@ -1,403 +1,263 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap');
-
+/* --- Variáveis de Design (Netflix Tokens) --- */
 :root {
-    --red: #E50914;
-    --black: #141414;
-    --white: #fff;
-    --title-font: 'Roboto', sans-serif;
+    --netflix-red: #e50914;
+    --bg-color: #111;
+    --text-color: #fff;
+    --text-muted: #999;
+    --navbar-black: #141414;
+    --btn-white: #fff;
+    --btn-gray: rgba(109, 109, 110, 0.7);
+    --transition: all 0.3s ease;
 }
 
+/* --- Reset e Base --- */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: var(--black);
-    color: var(--white);
-    font-family: var(--title-font);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     overflow-x: hidden;
 }
 
-/* --- Header / Navbar --- */
+/* --- Navbar --- */
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     height: 70px;
+    z-index: 999;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 4%;
-    z-index: 999;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
-    transition: background-color 0.5s ease;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 10%, transparent);
+    transition: var(--transition);
 }
 
+/* Efeito de preenchimento ao rolar (ativado via JS se necessário) */
 .navbar.black {
-    background-color: var(--black);
+    background-color: var(--navbar-black);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
 }
 
 .logo {
-    color: var(--red);
-    font-size: 30px;
-    font-weight: bold;
+    color: var(--netflix-red);
     text-decoration: none;
-    user-select: none;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -1px;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 20px;
+    margin-left: 25px;
 }
 
 .nav-links li a {
-    color: #fff;
+    color: #e5e5e5;
     text-decoration: none;
-    font-size: 14px;
-    transition: opacity 0.3s;
+    font-size: 0.85rem;
+    margin-left: 20px;
+    transition: var(--transition);
 }
 
 .nav-links li a:hover {
-    opacity: 0.7;
-}
-
-/* Menu Mobile: Lógica simples via CSS */
-.navbar nav { 
-    display: none; 
-}
-
-@media (min-width: 768px) { 
-    .navbar nav { 
-        display: block; 
-    } 
+    color: var(--text-muted);
 }
 
 .user-profile img {
-    height: 35px;
+    width: 32px;
+    height: 32px;
     border-radius: 4px;
     cursor: pointer;
 }
 
-/* --- HERO SECTION (Destaque) --- */
+/* --- Seção Destaque (Featured) --- */
 .featured {
-    height: 100vh;
-    min-height: 600px;
+    height: 85vh;
     background-size: cover;
     background-position: center;
-    position: relative;
 }
 
+/* Gradientes para mesclar a imagem com o layout */
 .featured--vertical {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, var(--black) 10%, transparent 90%);
+    width: inherit;
+    height: inherit;
+    background: linear-gradient(to top, var(--bg-color) 10%, transparent 90%);
 }
 
 .featured--horizontal {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, var(--black) 30%, transparent 70%);
+    width: inherit;
+    height: inherit;
+    background: linear-gradient(to right, var(--bg-color) 30%, transparent 70%);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 70px 30px 150px 30px;
+    padding-left: 4%;
+    padding-bottom: 100px;
+    padding-top: 70px;
 }
 
-/* AJUSTE SOLICITADO: Título Dinâmico */
 .featured--name {
-    font-size: clamp(2.5rem, 5vw, 5.625rem); /* 40px a 90px */
-    font-weight: 900;
-    margin-bottom: 20px;
-    line-height: 1.1;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-    
-    /* Redução dinâmica de fonte para títulos longos */
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    hyphens: auto;
-    
-    /* Limite de largura para não sobrepor imagem */
-    max-width: 60%;
-    
-    /* Controle de altura máxima e overflow */
-    max-height: 40%;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* Limita a 3 linhas */
-    -webkit-box-orient: vertical;
-    
-    /* Transição suave para redimensionamento */
-    transition: font-size 0.3s ease;
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    max-width: 600px;
 }
 
 .featured--info {
-    font-size: 1.125rem; /* 18px */
+    font-size: 1.2rem;
     font-weight: bold;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    flex-wrap: wrap;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    margin-bottom: 15px;
 }
 
-.featured--points { 
-    color: #46d369; 
+.featured--points {
+    color: #46d369;
+    margin-right: 15px;
+}
+
+.featured--year {
+    margin-right: 15px;
 }
 
 .featured--description {
-    font-size: clamp(0.875rem, 2vw, 1.25rem); /* 14px a 20px */
-    color: #e5e5e5;
-    max-width: 40%; 
-    min-width: 300px;
-    line-height: 1.6;
-    margin-bottom: 25px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-    
-    /* Reticências para textos longos */
-    overflow: hidden;
-    text-overflow: ellipsis;
+    margin-top: 15px;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 40%;
+    line-height: 1.4;
+    /* Limitar linhas para não quebrar o layout */
     display: -webkit-box;
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-/* Botões */
 .featured--buttons {
-    margin-bottom: 30px;
+    margin-top: 25px;
     display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
 }
 
 .btn-watch, .btn-list {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.25rem; /* 20px */
-    font-weight: bold;
-    padding: 12px 30px;
+    display: inline-block;
+    padding: 12px 25px;
     border-radius: 4px;
     text-decoration: none;
-    transition: all 0.2s ease;
-    border: none;
-    cursor: pointer;
-    min-height: 44px; /* Melhor acessibilidade em mobile */
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-right: 10px;
+    transition: opacity 0.2s;
 }
 
 .btn-watch {
-    background-color: var(--white);
-    color: var(--black);
-}
-
-.btn-watch:hover {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: var(--btn-white);
+    color: #000;
 }
 
 .btn-list {
-    background-color: rgba(109, 109, 110, 0.7);
-    color: var(--white);
+    background-color: var(--btn-gray);
+    color: var(--text-color);
 }
 
-.btn-list:hover {
-    background-color: rgba(109, 109, 110, 0.4);
+.btn-watch:hover, .btn-list:hover {
+    opacity: 0.7;
 }
 
-/* --- LISTAS E CARDS --- */
+/* --- Listas e Carrosséis (Injetados via JS) --- */
 .lists {
-    margin-top: -100px;
-    z-index: 99;
+    margin-top: -120px; /* Sobreposição elegante sobre o destaque */
     position: relative;
-    padding-bottom: 50px;
-    background: transparent;
+    z-index: 10;
 }
 
-.movieRow { 
-    margin-bottom: 40px; 
+/* Estilos previstos para as linhas de filmes que seu script.js criará */
+.movieRow {
+    margin-bottom: 30px;
 }
 
 .movieRow h2 {
-    margin: 0 0 15px 30px;
-    font-size: 1.5rem; /* 24px */
-    font-weight: 700;
+    margin-left: 4%;
+    font-size: 1.4vw;
 }
 
 .movieRow--listarea {
-    overflow-x: auto;
-    padding: 20px 30px;
-    cursor: grab;
-    user-select: none;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.movieRow--listarea::-webkit-scrollbar { 
-    display: none;
+    overflow-x: hidden;
+    padding-left: 4%;
 }
 
 .movieRow--list {
     display: flex;
-    width: max-content;
-    gap: 10px;
+    transition: all ease 0.5s;
 }
 
 .movieRow--item {
     display: inline-block;
-    width: 150px;
+    width: 200px;
     cursor: pointer;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border-radius: 5px;
-    position: relative;
+    margin-right: 10px;
 }
 
 .movieRow--item img {
     width: 100%;
-    border-radius: 5px;
-    display: block;
-    pointer-events: none;
+    transform: scale(0.9);
+    transition: var(--transition);
+    border-radius: 4px;
 }
 
-.movieRow--item:hover {
-    transform: scale(1.1);
-    z-index: 99;
+.movieRow--item:hover img {
+    transform: scale(1.05); /* Efeito Hover Scale clássico */
+    z-index: 20;
 }
 
-/* --- RESPONSIVIDADE --- */
-@media (max-width: 1024px) {
-    .featured--name {
-        max-width: 70%;
-        font-size: clamp(2rem, 4vw, 4rem);
-    }
-    
-    .featured--description {
-        max-width: 50%;
-    }
-}
-
-@media (max-width: 768px) {
-    .navbar {
-        padding: 0 20px;
-    }
-    
-    .featured--horizontal {
-        background: linear-gradient(to top, var(--black) 20%, rgba(0,0,0,0.6) 80%);
-        justify-content: flex-end;
-        padding: 70px 20px 80px;
-        align-items: flex-start;
-    }
-    
-    .featured--name {
-        font-size: clamp(1.75rem, 6vw, 2.5rem); /* 28px a 40px */
-        max-width: 100%;
-        -webkit-line-clamp: 2; /* Reduz para 2 linhas em mobile */
-    }
-    
-    .featured--description {
-        font-size: 1rem; /* 16px */
-        max-width: 100%;
-        min-width: unset;
-        margin-right: 20px;
-        -webkit-line-clamp: 3;
-    }
-    
-    .featured--info {
-        font-size: 1rem;
-    }
-    
-    .btn-watch, .btn-list {
-        font-size: 1rem; /* 16px */
-        padding: 10px 20px;
-        min-height: 40px;
-    }
-    
-    .movieRow h2 {
-        font-size: 1.125rem; /* 18px */
-        margin-left: 20px;
-    }
-    
-    .movieRow--item {
-        width: 120px;
-    }
-    
-    .movieRow--listarea {
-        padding: 15px 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .featured {
-        min-height: 500px;
-    }
-    
-    .featured--horizontal {
-        padding-bottom: 60px;
-    }
-    
-    .featured--name {
-        font-size: 1.5rem; /* 24px */
-        margin-bottom: 15px;
-    }
-    
-    .featured--buttons {
-        gap: 10px;
-    }
-    
-    .btn-watch, .btn-list {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .movieRow--item {
-        width: 100px;
-    }
-    
-    .nav-links {
-        gap: 10px;
-    }
-    
-    .nav-links li a {
-        font-size: 12px;
-    }
-}
-
-/* --- RODAPÉ (Footer) --- */
+/* --- Rodapé --- */
 footer {
     margin: 50px 0;
     text-align: center;
-    padding: 0 20px 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
 }
 
 footer p {
-    margin: 10px 0;
-    font-size: 0.875rem; /* 14px */
-    color: #999;
-    line-height: 1.5;
+    margin-bottom: 10px;
 }
 
-/* Melhorias para acessibilidade e foco */
-a:focus,
-button:focus {
-    outline: 2px solid var(--white);
-    outline-offset: 2px;
-}
-
-/* Suporte para telas muito largas */
-@media (min-width: 1920px) {
-    .featured--horizontal {
-        padding-left: 5%;
-        padding-right: 5%;
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Em mobile, a Netflix usa menu hambúrguer */
     }
-    
+
+    .featured--name {
+        font-size: 2.5rem;
+    }
+
+    .featured--description {
+        max-width: 90%;
+        font-size: 1rem;
+    }
+
+    .featured--buttons .btn-watch, 
+    .featured--buttons .btn-list {
+        font-size: 0.9rem;
+        padding: 10px 15px;
+    }
+
+    .lists {
+        margin-top: 0;
+    }
+
     .movieRow h2 {
-        margin-left: 5%;
-    }
-    
-    .movieRow--listarea {
-        padding-left: 5%;
-        padding-right: 5%;
+        font-size: 1.2rem;
     }
 }
