@@ -1,13 +1,12 @@
-/* --- Variáveis de Design (Netflix Tokens) --- */
+/* --- Variáveis de Design Ajustadas --- */
 :root {
     --netflix-red: #e50914;
     --bg-color: #111;
     --text-color: #fff;
     --text-muted: #999;
-    --navbar-black: #141414;
-    --btn-white: #fff;
-    --btn-gray: rgba(109, 109, 110, 0.7);
-    --transition: all 0.3s ease;
+    --card-width-desktop: 250px; /* Aumentado para maior visibilidade */
+    --card-width-mobile: 160px;  /* Tamanho ideal para toque */
+    --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Curva suave */
 }
 
 /* --- Reset e Base --- */
@@ -20,204 +19,181 @@
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    overflow-x: hidden;
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden; /* Evita scroll horizontal indesejado na página inteira */
 }
 
-/* --- Navbar --- */
+/* --- Navbar (Mantida) --- */
 .navbar {
     position: fixed;
     top: 0;
-    left: 0;
-    right: 0;
+    width: 100%;
     height: 70px;
     z-index: 999;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 4%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 10%, transparent);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
     transition: var(--transition);
-}
-
-/* Efeito de preenchimento ao rolar (ativado via JS se necessário) */
-.navbar.black {
-    background-color: var(--navbar-black);
-}
-
-.logo-container {
-    display: flex;
-    align-items: center;
 }
 
 .logo {
     color: var(--netflix-red);
     text-decoration: none;
-    font-size: 1.8rem;
+    font-size: 2rem; /* Logo um pouco maior */
     font-weight: 700;
-    letter-spacing: -1px;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    margin-left: 25px;
 }
 
 .nav-links li a {
     color: #e5e5e5;
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     margin-left: 20px;
     transition: var(--transition);
 }
 
-.nav-links li a:hover {
-    color: var(--text-muted);
-}
-
 .user-profile img {
-    width: 32px;
-    height: 32px;
+    width: 35px; /* Avatar um pouco maior */
+    height: 35px;
     border-radius: 4px;
-    cursor: pointer;
 }
 
-/* --- Seção Destaque (Featured) --- */
+/* --- Seção Destaque (Hero) --- */
 .featured {
-    height: 85vh;
+    height: 90vh; /* Ocupa quase toda a tela para imersão */
     background-size: cover;
     background-position: center;
 }
 
-/* Gradientes para mesclar a imagem com o layout */
 .featured--vertical {
-    width: inherit;
-    height: inherit;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(to top, var(--bg-color) 10%, transparent 90%);
 }
 
 .featured--horizontal {
-    width: inherit;
-    height: inherit;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(to right, var(--bg-color) 30%, transparent 70%);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 4%;
-    padding-bottom: 100px;
+    padding-left: 5%; /* Mais respiro lateral */
+    padding-bottom: 150px;
     padding-top: 70px;
 }
 
 .featured--name {
-    font-size: 4rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-    max-width: 600px;
+    font-size: 5rem; /* Título gigante e impactante */
+    font-weight: 700;
+    margin-bottom: 20px;
+    max-width: 800px;
+    line-height: 1.1;
 }
 
 .featured--info {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: bold;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
-.featured--points {
-    color: #46d369;
-    margin-right: 15px;
-}
-
-.featured--year {
-    margin-right: 15px;
-}
+.featured--points { color: #46d369; margin-right: 15px; }
+.featured--year { margin-right: 15px; }
 
 .featured--description {
     margin-top: 15px;
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    max-width: 40%;
-    line-height: 1.4;
-    /* Limitar linhas para não quebrar o layout */
+    font-size: 1.2rem;
+    color: #fff;
+    max-width: 45%;
+    line-height: 1.5;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Melhora leitura sobre imagem */
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-.featured--buttons {
-    margin-top: 25px;
-    display: flex;
-}
+.featured--buttons { margin-top: 30px; }
 
 .btn-watch, .btn-list {
-    display: inline-block;
-    padding: 12px 25px;
+    padding: 15px 35px; /* Botões mais robustos */
     border-radius: 4px;
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: bold;
-    margin-right: 10px;
-    transition: opacity 0.2s;
+    margin-right: 15px;
+    transition: transform 0.2s;
+    display: inline-flex;
+    align-items: center;
 }
 
-.btn-watch {
-    background-color: var(--btn-white);
-    color: #000;
-}
+.btn-watch { background-color: #fff; color: #000; }
+.btn-watch:hover { opacity: 0.8; }
+.btn-list { background-color: rgba(109, 109, 110, 0.7); color: #fff; }
+.btn-list:hover { background-color: rgba(109, 109, 110, 0.4); }
 
-.btn-list {
-    background-color: var(--btn-gray);
-    color: var(--text-color);
-}
-
-.btn-watch:hover, .btn-list:hover {
-    opacity: 0.7;
-}
-
-/* --- Listas e Carrosséis (Injetados via JS) --- */
+/* --- Listas e Carrosséis (Ajustes de Visibilidade e Tamanho) --- */
 .lists {
-    margin-top: -120px; /* Sobreposição elegante sobre o destaque */
+    margin-top: -150px; /* Sobe mais sobre o destaque */
     position: relative;
     z-index: 10;
+    padding-bottom: 50px;
 }
 
-/* Estilos previstos para as linhas de filmes que seu script.js criará */
 .movieRow {
-    margin-bottom: 30px;
+    margin-bottom: 40px; /* Mais espaço entre categorias */
 }
 
 .movieRow h2 {
-    margin-left: 4%;
-    font-size: 1.4vw;
+    margin-left: 5%;
+    font-size: 1.5rem;
+    margin-bottom: 15px; /* Afasta o título dos cards */
+    font-weight: 600;
 }
 
 .movieRow--listarea {
-    overflow-x: hidden;
-    padding-left: 4%;
+    overflow-x: scroll;
+    padding-left: 5%;
+    padding-right: 5%; /* Padding à direita para não cortar o último item */
+    /* Esconder scrollbar mantendo funcionalidade */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.movieRow--listarea::-webkit-scrollbar {
+    display: none; /* Chrome */
 }
 
 .movieRow--list {
-    display: flex;
-    transition: all ease 0.5s;
+    display: flex; /* Garante alinhamento horizontal */
+    gap: 15px; /* Espaçamento entre cards aumentado */
+    width: max-content; /* Permite que a lista cresça horizontalmente */
 }
 
 .movieRow--item {
     display: inline-block;
-    width: 200px;
+    width: var(--card-width-desktop); /* 250px - Bem maior */
     cursor: pointer;
-    margin-right: 10px;
+    transition: var(--transition);
 }
 
 .movieRow--item img {
     width: 100%;
-    transform: scale(0.9);
-    transition: var(--transition);
     border-radius: 4px;
+    display: block; /* Remove espaços fantasmas abaixo da img */
+    transition: var(--transition);
 }
 
-.movieRow--item:hover img {
-    transform: scale(1.05); /* Efeito Hover Scale clássico */
-    z-index: 20;
+/* Hover Scale Aprimorado */
+.movieRow--item:hover {
+    transform: scale(1.1); /* Zoom de 10% */
+    z-index: 99;
 }
 
 /* --- Rodapé --- */
@@ -228,36 +204,56 @@ footer {
     font-size: 0.9rem;
 }
 
-footer p {
-    margin-bottom: 10px;
-}
-
-/* --- Responsividade --- */
+/* --- RESPONSIVIDADE (Mobile First Approach) --- */
 @media (max-width: 768px) {
-    .nav-links {
-        display: none; /* Em mobile, a Netflix usa menu hambúrguer */
+    /* Navbar compacta */
+    .nav-links { display: none; }
+    .logo { font-size: 1.5rem; }
+    
+    /* Hero ajustado para telas verticais */
+    .featured { height: 65vh; }
+    .featured--horizontal {
+        padding-left: 4%;
+        padding-bottom: 20px; /* Menos padding bottom para aproveitar espaço */
     }
-
-    .featured--name {
-        font-size: 2.5rem;
-    }
-
+    
+    .featured--name { font-size: 2.5rem; }
     .featured--description {
-        max-width: 90%;
+        max-width: 100%; /* Texto ocupa largura total */
         font-size: 1rem;
+        padding-right: 4%;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Limita texto no mobile */
     }
 
-    .featured--buttons .btn-watch, 
-    .featured--buttons .btn-list {
-        font-size: 0.9rem;
-        padding: 10px 15px;
+    .featured--buttons { margin-top: 15px; }
+    .btn-watch, .btn-list {
+        padding: 10px 20px;
+        font-size: 1rem;
+        margin-right: 10px;
     }
 
-    .lists {
-        margin-top: 0;
-    }
-
+    /* Listas no Mobile */
+    .lists { margin-top: -50px; } /* Sobe menos no mobile */
+    
     .movieRow h2 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+        margin-left: 4%;
+    }
+
+    .movieRow--listarea { padding-left: 4%; }
+    
+    .movieRow--list {
+        gap: 10px; /* Gap menor no mobile para caber mais */
+    }
+
+    .movieRow--item {
+        width: var(--card-width-mobile); /* 160px fixo - garante bom tamanho de toque */
+        /* Alternativa: width: 40vw; para ser relativo à tela */
+    }
+
+    /* Remove efeito de escala exagerado no touch para evitar bugs visuais */
+    .movieRow--item:hover {
+        transform: scale(1.02); 
     }
 }
