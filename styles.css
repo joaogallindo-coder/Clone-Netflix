@@ -1,139 +1,524 @@
-/* Reset básico */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap');
+
+:root {
+    --red: #E50914;
+    --black: #141414;
+    --white: #fff;
+    --title-font: 'Roboto', sans-serif;
+}
+
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-    color: #fff;
 }
 
-/* Estilos do corpo */
 body {
-    /* Netflix: Cor de fundo principal correta */
-    background-color: #141414;
-    color: white;
+    background-color: var(--black);
+    color: var(--white);
+    font-family: var(--title-font);
+    overflow-x: hidden;
 }
 
-/* Estilos do cabeçalho */
+/* --- Header / Navbar --- */
 .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    /* Netflix: Cor de fundo principal correta */
-    background-color: #141414;
+    padding: 0 4%;
+    z-index: 999;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+    transition: background-color 0.5s ease;
 }
 
-.logo a {
-    /* Netflix: Vermelho principal correto */
-    color: #e50914;
-    font-size: 24px;
+.navbar.black {
+    background-color: var(--black);
+}
+
+.logo {
+    color: var(--red);
+    font-size: 33px;
     font-weight: bold;
     text-decoration: none;
+    user-select: none;
 }
 
-.navbar nav a {
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li a {
     color: #fff;
-    margin-left: 20px;
     text-decoration: none;
     font-size: 14px;
-    /* Netflix: Adicionada transição suave para hover */
-    transition: color 0.3s ease;
+    transition: opacity 0.3s;
 }
 
-/* Netflix: Adicionada microinteração de hover nos links da navegação */
-.navbar nav a:hover {
-    color: #b3b3b3;
+.nav-links li a:hover {
+    opacity: 0.7;
 }
 
-.navbar .profile img {
-    width: 30px;
-    border-radius: 50%;
+/* Menu Mobile: Lógica simples via CSS */
+.navbar nav { 
+    display: none; 
 }
 
-/* Seção de conteúdo */
-.content {
-    padding: 20px;
+@media (min-width: 768px) { 
+    .navbar nav { 
+        display: block; 
+    } 
 }
 
-.content h2 {
+.user-profile img {
+    height: 35px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* --- HERO SECTION (Destaque) --- */
+.featured {
+    height: 100vh;
+    min-height: 600px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.featured--vertical {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, var(--black) 10%, transparent 90%);
+    display: flex;
+    align-items: flex-end; /* Alinha conteúdo no final para evitar sobreposição com logo */
+}
+
+.featured--horizontal {
+    width: 100%;
+    padding: 100px 30px 150px 30px; /* Aumentei padding-top para descer conteúdo */
+    background: linear-gradient(to right, var(--black) 30%, transparent 70%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* AJUSTE CRÍTICO: Título Dinâmico - EVITANDO INTERFERÊNCIAS */
+.featured--name {
+    font-size: clamp(2.5rem, 4.5vw, 4.5rem); /* Reduzi o máximo para 72px */
+    font-weight: 900;
+    line-height: 1.05; /* Linha mais compacta para evitar espaçamento excessivo */
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.9);
+    
+    /* Controle de tamanho e espaçamento */
+    max-width: 55%; /* Reduzi para 55% para evitar sobreposição com imagem */
+    margin-bottom: 15px; /* Reduzi margem inferior */
+    
+    /* Controle de quebra de texto - mais agressivo para títulos longos */
+    display: block;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    
+    /* Altura dinâmica com limite */
+    height: auto;
+    min-height: 50px;
+    max-height: 25vh; /* Reduzi altura máxima */
+    
+    /* Ajuste dinâmico baseado no comprimento do texto */
+    font-size-adjust: 0.5;
+    
+    /* Garantir que o texto sempre fique visível */
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    
+    /* Espaçamento interno reduzido */
+    padding: 2px 0;
+    
+    /* Se o título for muito longo, reduz ainda mais o tamanho da fonte */
+    font-size: min(4.5rem, calc(3rem + 1vw)); /* Fórmula mais conservadora */
+}
+
+/* Container das informações (nota, ano) - melhor posicionamento */
+.featured--info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     margin-bottom: 20px;
 }
 
-/* Grade de filmes */
-.movie-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 15px;
-}
-
-/* Estilos dos itens de filme */
-.movie-item {
-    position: relative;
-    /* Netflix: Borda mais sutil */
-    border-radius: 4px;
-    overflow: hidden;
-    /* Netflix: Transição aprimorada para o efeito de "lift" */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s 0.15s;
-    cursor: pointer;
-    /* Netflix: Cor de fundo padrão para cards */
-    background-color: #181818;
-}
-
-.movie-item:hover {
-    /* Netflix: Efeito de 'lift' (elevar) e zoom suave */
-    transform: scale(1.08);
-    /* Netflix: Traz o item para frente */
-    z-index: 10;
-    /* Netflix: Sombra sutil para dar profundidade */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    /* Netflix: Otimiza a transição de volta */
-    transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s 0s;
-}
-
-.movie-item img {
-    width: 100%;
-    display: block;
-}
-
-.movie-info {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 120px;
-}
-
-.movie-title {
-    font-size: 16px;
+.featured--info {
+    font-size: 1.125rem;
     font-weight: bold;
-    margin-bottom: 5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
-.movie-overview {
-    font-size: 13px;
-    /* Netflix: Cor de texto secundária correta */
-    color: #b3b3b3;
-    max-height: 3em;
+.featured--points { 
+    color: #46d369; 
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 2px 8px;
+    border-radius: 3px;
+}
+
+.featured--description {
+    font-size: clamp(0.875rem, 1.8vw, 1.125rem); /* Reduzi o máximo para 18px */
+    color: #e5e5e5;
+    max-width: 45%; /* Aumentei um pouco para melhor leitura */
+    min-width: 300px;
+    line-height: 1.5; /* Linha mais compacta */
+    margin-bottom: 20px; /* Margem reduzida */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+    
+    /* Reticências para textos longos */
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 4; /* Reduzi para 4 linhas */
     -webkit-box-orient: vertical;
 }
 
-.movie-rating {
-    font-size: 14px;
-    /* Netflix: Cor de "relevância" (match) em vez de amarelo */
-    color: #46D369; 
-    margin-right: 5px;
+/* Botões */
+.featured--buttons {
+    margin-top: 10px; /* Margem superior para separar da descrição */
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
-.movie-release {
-    font-size: 12px;
-    /* Netflix: Cor de texto secundária correta */
-    color: #b3b3b3;
+.btn-watch, .btn-list {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.125rem; /* Reduzi para 18px */
+    font-weight: bold;
+    padding: 10px 25px; /* Padding reduzido */
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+    min-height: 40px; /* Altura mínima reduzida */
+}
+
+.btn-watch {
+    background-color: var(--white);
+    color: var(--black);
+}
+
+.btn-watch:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-list {
+    background-color: rgba(109, 109, 110, 0.7);
+    color: var(--white);
+}
+
+.btn-list:hover {
+    background-color: rgba(109, 109, 110, 0.4);
+}
+
+/* --- LISTAS E CARDS --- */
+.lists {
+    margin-top: -80px; /* Reduzi o negativo para subir menos */
+    z-index: 99;
+    position: relative;
+    padding-bottom: 50px;
+    background: transparent;
+}
+
+.movieRow { 
+    margin-bottom: 40px; 
+}
+
+.movieRow h2 {
+    margin: 0 0 15px 30px;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.movieRow--listarea {
+    overflow-x: auto;
+    padding: 20px 30px;
+    cursor: grab;
+    user-select: none;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.movieRow--listarea::-webkit-scrollbar { 
+    display: none;
+}
+
+.movieRow--list {
+    display: flex;
+    width: max-content;
+    gap: 10px;
+}
+
+.movieRow--item {
+    display: inline-block;
+    width: 150px;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-radius: 5px;
+    position: relative;
+}
+
+.movieRow--item img {
+    width: 100%;
+    border-radius: 5px;
+    display: block;
+    pointer-events: none;
+}
+
+.movieRow--item:hover {
+    transform: scale(1.1);
+    z-index: 99;
+}
+
+/* --- AJUSTES ESPECÍFICOS PARA DESKTOP --- */
+@media (min-width: 1025px) {
+    .featured--horizontal {
+        padding-top: 120px; /* Mais espaço no topo para evitar logo */
+        padding-bottom: 120px;
+    }
+    
+    .featured--name {
+        /* Fórmula mais inteligente: quanto mais longo o texto, menor a fonte */
+        font-size: min(4rem, calc(2.5rem + 1vw - 0.1rem * var(--text-length, 0)));
+        max-width: 50%; /* Mais estreito em desktop */
+        margin-bottom: 12px;
+        max-height: 20vh;
+    }
+    
+    .featured--description {
+        max-width: 40%;
+        font-size: 1rem;
+        line-height: 1.4;
+        margin-bottom: 15px;
+    }
+    
+    .featured--info {
+        font-size: 1rem;
+    }
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 1200px) {
+    .featured--name {
+        max-width: 60%;
+        font-size: clamp(2.2rem, 4vw, 3.5rem);
+    }
+    
+    .featured--description {
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .featured--name {
+        max-width: 65%;
+        font-size: clamp(2rem, 3.8vw, 3.2rem);
+    }
+    
+    .featured--vertical {
+        align-items: center; /* Centraliza verticalmente em tablets */
+    }
+}
+
+@media (max-width: 900px) {
+    .featured--name {
+        max-width: 75%;
+        font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+        max-height: 22vh;
+    }
+    
+    .featured--description {
+        max-width: 60%;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 20px;
+    }
+    
+    .featured--horizontal {
+        background: linear-gradient(to top, var(--black) 20%, rgba(0,0,0,0.6) 80%);
+        justify-content: flex-end;
+        padding: 100px 20px 80px;
+        align-items: flex-start;
+    }
+    
+    /* TÍTULO EM MOBILE */
+    .featured--name {
+        font-size: clamp(1.6rem, 5vw, 2.2rem);
+        max-width: 100%;
+        max-height: 20vh;
+        margin-bottom: 10px;
+        line-height: 1.1;
+    }
+    
+    .featured--description {
+        font-size: 0.95rem;
+        max-width: 100%;
+        min-width: unset;
+        margin-right: 20px;
+        -webkit-line-clamp: 3;
+        line-height: 1.4;
+    }
+    
+    .featured--info {
+        font-size: 0.95rem;
+    }
+    
+    .btn-watch, .btn-list {
+        font-size: 0.95rem;
+        padding: 8px 18px;
+        min-height: 36px;
+    }
+    
+    .movieRow h2 {
+        font-size: 1.125rem;
+        margin-left: 20px;
+    }
+    
+    .movieRow--item {
+        width: 120px;
+    }
+    
+    .movieRow--listarea {
+        padding: 15px 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .featured--name {
+        font-size: clamp(1.4rem, 4.5vw, 1.8rem);
+        max-height: 18vh;
+        margin-bottom: 8px;
+    }
+    
+    .featured--description {
+        font-size: 0.875rem;
+        -webkit-line-clamp: 2; /* Apenas 2 linhas em mobile pequeno */
+    }
+}
+
+@media (max-width: 480px) {
+    .featured {
+        min-height: 500px;
+    }
+    
+    .featured--horizontal {
+        padding-top: 80px;
+        padding-bottom: 60px;
+    }
+    
+    .featured--name {
+        font-size: 1.3rem;
+        max-height: 15vh;
+        margin-bottom: 6px;
+    }
+    
+    .featured--buttons {
+        gap: 8px;
+        flex-direction: column; /* Botões empilhados em mobile muito pequeno */
+    }
+    
+    .btn-watch, .btn-list {
+        width: 100%;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+    
+    .movieRow--item {
+        width: 100px;
+    }
+    
+    .nav-links {
+        gap: 8px;
+    }
+    
+    .nav-links li a {
+        font-size: 11px;
+    }
+}
+
+/* --- RODAPÉ (Footer) --- */
+footer {
+    margin: 40px 0 20px;
+    text-align: center;
+    padding: 0 20px 20px;
+}
+
+footer p {
+    margin: 8px 0;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.4;
+}
+
+/* Melhorias para acessibilidade e foco */
+a:focus,
+button:focus {
+    outline: 2px solid var(--white);
+    outline-offset: 2px;
+}
+
+/* Classe específica para títulos muito longos (será adicionada via JavaScript se necessário) */
+.featured--name.long-title {
+    font-size: clamp(1.8rem, 3.5vw, 3rem) !important;
+    max-width: 45% !important;
+    line-height: 1 !important;
+}
+
+/* Suporte para telas muito largas */
+@media (min-width: 1600px) {
+    .featured--horizontal {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    
+    .featured--name {
+        max-width: 45%;
+        font-size: clamp(2.5rem, 3vw, 3.5rem);
+    }
+    
+    .movieRow h2 {
+        margin-left: 5%;
+    }
+    
+    .movieRow--listarea {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+}
+
+/* Para evitar sobreposição com a logo em telas altas mas estreitas */
+@media (max-height: 800px) and (min-width: 768px) {
+    .featured--vertical {
+        align-items: flex-start; /* Alinha no topo para telas curtas */
+    }
+    
+    .featured--horizontal {
+        padding-top: 90px;
+        padding-bottom: 80px;
+    }
+    
+    .featured--name {
+        max-height: 18vh;
+        font-size: clamp(2rem, 3.5vw, 3rem);
+    }
 }
