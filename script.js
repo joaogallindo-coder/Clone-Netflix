@@ -2,80 +2,170 @@ function aba(){
     alert("Essa aba não está disponível!");
 }
 
+/* === CONFIGURAÇÃO SEGURA === */
+// Insira sua API Key aqui. Nenhuma input de usuário é gerado neste código.
+const API_KEY = '0a175c1a1b1940d68254d69f11760b67'; 
+const API_BASE = 'https://api.themoviedb.org/3';
+const LANGUAGE = 'pt-BR';
 
-// require('dotenv').config();
-
-// const apiKey = process.env.API_KEY;
-// const options = {
-//     method: 'GET',
-//     headers: {
-//         accept: 'application/json',
-//         Authorization: `Bearer ${apiKey}`
-//     }
-// };
-
-
-const options = {
-    method: 'GET',
-    headers: {
-        accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNzNjMGRhMzUwN2EzZjE0MWY4ODU5YWIyZjA2MTYxMSIsIm5iZiI6MTczMTA5MjI3Ny4zNzA0MDk3LCJzdWIiOiI2NzE1M2Y5NTJiYmJhNjVmN2IxMTYzODYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.NuBCOPamLvuJmc8jCTYlLA4mX2cFSHnaCvipurZNUDs'
+/* Fetch Helper */
+const basicFetch = async (endpoint) => {
+    try {
+        const req = await fetch(`${API_BASE}${endpoint}`);
+        if (!req.ok) throw new Error('Erro ao conectar com API');
+        return await req.json();
+    } catch (error) {
+        console.error("Erro:", error);
+        return null;
     }
-};
-
-function formatDate(data) {
-    let ano = data.slice(0, 4);
-    let mes = data.slice(5, 7);
-    let dia = data.slice(8, 10);
-    return `${dia}/${mes}/${ano}`;
 }
 
-fetch('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc', options)
-    .then(res => res.json())
-    .then(dados => {
-        const movieGrid = document.getElementById('movie-grid');
-        dados.results.forEach(filme => {
-            // Cria o contêiner do item do filme
-            const movieItem = document.createElement("div");
-            movieItem.classList.add("movie-item");
+/* Definição de Categorias Estáticas */
+const getHomeList = async () => {
+    return [
+        {
+            slug: 'originals',
+            title: 'Originais do Netflix',
+            items: await basicFetch(`/discover/tv?with_network=213&language=${LANGUAGE}&api_key=${API_KEY}`)
+        },
+        {
+            slug: 'trending',
+            title: 'Recomendados para Você',
+            items: await basicFetch(`/trending/all/week?language=${LANGUAGE}&api_key=${API_KEY}`)
+        },
+        {
+            slug: 'toprated',
+            title: 'Em Alta',
+            items: await basicFetch(`/movie/top_rated?language=${LANGUAGE}&api_key=${API_KEY}`)
+        },
+        {
+            slug: 'action',
+            title: 'Top Ação',
+            items: await basicFetch(`/discover/movie?with_genres=28&language=${LANGUAGE}&api_key=${API_KEY}`)
+        },
+        {
+            slug: 'comedy',
+            title: 'Top Comédia',
+            items: await basicFetch(`/discover/movie?with_genres=35&language=${LANGUAGE}&api_key=${API_KEY}`)
+        },
+        {
+            slug: 'drama',
+            title: 'Top Drama',
+            items: await basicFetch(`/discover/movie?with_genres=18&language=${LANGUAGE}&api_key=${API_KEY}`)
+        }
+    ];
+}
 
-            // Adiciona a imagem do filme
-            const img = document.createElement("img");
-            img.src = `https://image.tmdb.org/t/p/w500${filme.backdrop_path}`;
-            img.alt = filme.title;
-            movieItem.appendChild(img);
+/* Renderização do Destaque (Hero) */
+const renderFeatured = async (items) => {
+    if (!items || !items.results || items.results.length === 0) return;
 
-            // Contêiner de informações do filme
-            const movieInfo = document.createElement("div");
-            movieInfo.classList.add("movie-info");
+    let randomChosen = Math.floor(Math.random() * (items.results.length - 1));
+    let chosen = items.results[randomChosen];
+    let chosenInfo = await basicFetch(`/tv/${chosen.id}?language=${LANGUAGE}&api_key=${API_KEY}`);
 
-            // Título
-            const title = document.createElement("p");
-            title.classList.add("movie-title");
-            title.innerText = filme.title;
-            movieInfo.appendChild(title);
+    if (!chosenInfo) return;
 
-            // Nota do filme
-            const rating = document.createElement("span");
-            rating.classList.add("movie-rating");
-            rating.innerText = `⭐ ${filme.vote_average.toFixed(1)}`;
-            movieInfo.appendChild(rating);
+    let description = chosenInfo.overview;
+    if (description.length > 200) {
+        description = description.substring(0, 200) + '...';
+    }
 
-            // Data de lançamento
-            const release = document.createElement("span");
-            release.classList.add("movie-release");
-            release.innerText = ` | Lançamento: ${formatDate(filme.release_date)}`;
-            movieInfo.appendChild(release);
+    // Injeção de dados em elementos estáticos (H2, SPAN, P)
+    document.getElementById('featured').style.backgroundImage = `url(https://image.tmdb.org/t/p/original${chosenInfo.backdrop_path})`;
+    document.getElementById('featured-title').innerText = chosenInfo.name; // Vai para o H2
+    document.getElementById('featured-score').innerText = `${chosenInfo.vote_average.toFixed(1)} pontos`; // Vai para o SPAN
+    
+    let year = new Date(chosenInfo.first_air_date).getFullYear();
+    document.getElementById('featured-year').innerText = year; // Vai para o SPAN
+    document.getElementById('featured-desc').innerText = description || "Descrição indisponível."; // Vai para o P
+}
 
-            // Descrição breve
-            const overview = document.createElement("p");
-            overview.classList.add("movie-overview");
-            overview.innerText = filme.overview;
-            movieInfo.appendChild(overview);
+/* Drag-to-Scroll Lógica */
+const enableDragScrolling = () => {
+    const sliders = document.querySelectorAll('.movieRow--listarea');
+    sliders.forEach(slider => {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
 
-            // Adiciona o bloco de informações ao item do filme
-            movieItem.appendChild(movieInfo);
-            movieGrid.appendChild(movieItem);
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
         });
-    })
-    .catch(err => console.error(err));
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2; 
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    });
+}
+
+/* Inicialização */
+const loadAll = async () => {
+    const list = await getHomeList();
+    
+    let originals = list.filter(i => i.slug === 'originals');
+    if(originals.length > 0) {
+        await renderFeatured(originals[0].items);
+    }
+
+    const listArea = document.getElementById('lists');
+    let html = '';
+
+    for(let i in list) {
+        let results = list[i].items ? list[i].items.results : [];
+        if(results.length > 0) {
+            // Estrutura semântica: Section > H2 > Divs
+            html += `
+                <section class="movieRow">
+                    <h2>${list[i].title}</h2>
+                    <div class="movieRow--listarea">
+                        <div class="movieRow--list">
+            `;
+            
+            results.forEach(item => {
+                if(item.poster_path) {
+                    let title = item.title || item.name;
+                    // Imagem puramente visual, sem inputs associados
+                    html += `
+                        <div class="movieRow--item">
+                            <img src="https://image.tmdb.org/t/p/w300${item.poster_path}" alt="${title}" loading="lazy" />
+                        </div>
+                    `;
+                }
+            });
+
+            html += `
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+    }
+
+    listArea.innerHTML = html;
+    enableDragScrolling();
+}
+
+loadAll();
+
+window.addEventListener('scroll', () => {
+    if(window.scrollY > 10) {
+        document.getElementById('navbar').classList.add('black');
+    } else {
+        document.getElementById('navbar').classList.remove('black');
+    }
+});
