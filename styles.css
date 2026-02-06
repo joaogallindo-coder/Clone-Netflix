@@ -1,264 +1,236 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap');
-
+/* --- Variáveis de Design Ajustadas --- */
 :root {
-    --red: #E50914;
-    --black: #141414;
-    --white: #fff;
-    --title-font: 'Roboto', sans-serif;
+    --netflix-red: #e50914;
+    --bg-color: #111;
+    --text-color: #fff;
+    --text-muted: #999;
+    --card-width-desktop: 250px;
+    --card-width-mobile: 160px;
+    --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* Variáveis dos Botões */
+    --btn-white: #ffffff;
+    --btn-black: #000000;
+    --btn-glass: rgba(109, 109, 110, 0.7);
+    --btn-glass-hover: rgba(109, 109, 110, 0.4);
 }
 
+/* --- Reset e Base --- */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: var(--black);
-    color: var(--white);
-    font-family: var(--title-font);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
     overflow-x: hidden;
 }
 
-/* --- Header / Navbar --- */
+/* --- Navbar (Mantida) --- */
 .navbar {
     position: fixed;
     top: 0;
-    left: 0;
-    right: 0;
+    width: 100%;
     height: 70px;
+    z-index: 999;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 4%;
-    z-index: 999;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
-    transition: background-color 0.5s ease;
-}
-
-.navbar.black {
-    background-color: var(--black);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
+    transition: var(--transition);
 }
 
 .logo {
-    color: var(--red);
-    font-size: 30px;
-    font-weight: bold;
+    color: var(--netflix-red);
     text-decoration: none;
-    user-select: none;
+    font-size: 2rem;
+    font-weight: 700;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 20px;
 }
 
 .nav-links li a {
-    color: #fff;
+    color: #e5e5e5;
     text-decoration: none;
-    font-size: 14px;
-    transition: opacity 0.3s;
-}
-
-.nav-links li a:hover {
-    opacity: 0.7;
-}
-
-/* Menu Mobile: Lógica simples via CSS */
-.navbar nav { 
-    display: none; 
-}
-
-@media (min-width: 768px) { 
-    .navbar nav { 
-        display: block; 
-    } 
+    font-size: 0.9rem;
+    margin-left: 20px;
+    transition: var(--transition);
 }
 
 .user-profile img {
+    width: 35px;
     height: 35px;
     border-radius: 4px;
-    cursor: pointer;
 }
 
-/* --- HERO SECTION (Destaque) --- */
+/* --- Seção Destaque (Hero) --- */
 .featured {
-    height: 100vh;
-    min-height: 600px;
+    height: 90vh;
     background-size: cover;
     background-position: center;
-    position: relative;
 }
 
 .featured--vertical {
     width: 100%;
     height: 100%;
-    background: linear-gradient(to top, var(--black) 10%, transparent 90%);
+    background: linear-gradient(to top, var(--bg-color) 10%, transparent 90%);
 }
 
 .featured--horizontal {
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, var(--black) 30%, transparent 70%);
+    background: linear-gradient(to right, var(--bg-color) 30%, transparent 70%);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 70px 30px 150px 30px;
+    padding-left: 5%;
+    padding-bottom: 150px;
+    padding-top: 70px;
 }
 
-/* AJUSTE SOLICITADO: Título Dinâmico */
 .featured--name {
-    font-size: clamp(2.5rem, 5vw, 5.625rem); /* 40px a 90px */
-    font-weight: 900;
+    font-size: 5rem;
+    font-weight: 700;
     margin-bottom: 20px;
+    max-width: 800px;
     line-height: 1.1;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-    
-    /* Redução dinâmica de fonte para títulos longos */
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    hyphens: auto;
-    
-    /* Limite de largura para não sobrepor imagem */
-    max-width: 60%;
-    
-    /* Controle de altura máxima e overflow */
-    max-height: 40%;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* Limita a 3 linhas */
-    -webkit-box-orient: vertical;
-    
-    /* Transição suave para redimensionamento */
-    transition: font-size 0.3s ease;
 }
 
 .featured--info {
-    font-size: 1.125rem; /* 18px */
+    font-size: 1.3rem;
     font-weight: bold;
     margin-bottom: 20px;
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    flex-wrap: wrap;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
-.featured--points { 
-    color: #46d369; 
-}
+.featured--points { color: #46d369; margin-right: 15px; }
+.featured--year { margin-right: 15px; }
 
 .featured--description {
-    font-size: clamp(0.875rem, 2vw, 1.25rem); /* 14px a 20px */
-    color: #e5e5e5;
-    max-width: 40%; 
-    min-width: 300px;
-    line-height: 1.6;
-    margin-bottom: 25px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-    
-    /* Reticências para textos longos */
-    overflow: hidden;
-    text-overflow: ellipsis;
+    margin-top: 15px;
+    font-size: 1.2rem;
+    color: #fff;
+    max-width: 45%;
+    line-height: 1.5;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     display: -webkit-box;
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-/* Botões */
+/* --- Botões (Integração Nova) --- */
 .featured--buttons {
-    margin-bottom: 30px;
+    margin-top: 30px;
     display: flex;
-    gap: 15px;
+    gap: 15px; /* Espaço entre botões */
     flex-wrap: wrap;
+    align-items: center;
 }
 
+/* Estilo Base para ambos os botões */
 .btn-watch, .btn-list {
     display: inline-flex;
-    justify-content: center;
     align-items: center;
-    font-size: 1.25rem; /* 20px */
-    font-weight: bold;
-    padding: 12px 30px;
+    justify-content: center;
+    padding: 12px 30px; /* Ajustado para equilíbrio */
     border-radius: 4px;
     text-decoration: none;
-    transition: all 0.2s ease;
+    font-size: 1.2rem;
+    font-weight: bold;
     border: none;
     cursor: pointer;
-    min-height: 44px; /* Melhor acessibilidade em mobile */
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    line-height: 1;
 }
 
+.btn-watch svg, .btn-list svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: 10px;
+    fill: currentColor;
+    flex-shrink: 0;
+}
+
+/* Efeito Hover Geral */
+.btn-watch:hover, .btn-list:hover {
+    transform: scale(1.05);
+}
+
+/* Botão Assistir (Branco) */
 .btn-watch {
-    background-color: var(--white);
-    color: var(--black);
+    background-color: var(--btn-white);
+    color: var(--btn-black);
 }
-
 .btn-watch:hover {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.75);
 }
 
+/* Botão Minha Lista/Mais (Cinza Translúcido) */
 .btn-list {
-    background-color: rgba(109, 109, 110, 0.7);
-    color: var(--white);
+    background-color: var(--btn-glass);
+    color: var(--text-color);
 }
-
 .btn-list:hover {
-    background-color: rgba(109, 109, 110, 0.4);
+    background-color: var(--btn-glass-hover);
 }
 
-/* --- LISTAS E CARDS --- */
+
+/* --- Listas e Carrosséis --- */
 .lists {
-    margin-top: -100px;
-    z-index: 99;
+    margin-top: -150px;
     position: relative;
+    z-index: 10;
     padding-bottom: 50px;
-    background: transparent;
 }
 
-.movieRow { 
-    margin-bottom: 40px; 
+.movieRow {
+    margin-bottom: 40px;
 }
 
 .movieRow h2 {
-    margin: 0 0 15px 30px;
-    font-size: 1.5rem; /* 24px */
-    font-weight: 700;
+    margin-left: 5%;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 
 .movieRow--listarea {
-    overflow-x: auto;
-    padding: 20px 30px;
-    cursor: grab;
-    user-select: none;
+    overflow-x: scroll;
+    padding-left: 5%;
+    padding-right: 5%;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
 
-.movieRow--listarea::-webkit-scrollbar { 
+.movieRow--listarea::-webkit-scrollbar {
     display: none;
 }
 
 .movieRow--list {
     display: flex;
+    gap: 15px;
     width: max-content;
-    gap: 10px;
 }
 
 .movieRow--item {
     display: inline-block;
-    width: 150px;
+    width: var(--card-width-desktop);
     cursor: pointer;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border-radius: 5px;
-    position: relative;
+    transition: var(--transition);
 }
 
 .movieRow--item img {
     width: 100%;
-    border-radius: 5px;
+    border-radius: 4px;
     display: block;
-    pointer-events: none;
+    transition: var(--transition);
 }
 
 .movieRow--item:hover {
@@ -266,138 +238,68 @@ body {
     z-index: 99;
 }
 
-/* --- RESPONSIVIDADE --- */
-@media (max-width: 1024px) {
-    .featured--name {
-        max-width: 70%;
-        font-size: clamp(2rem, 4vw, 4rem);
-    }
-    
-    .featured--description {
-        max-width: 50%;
-    }
-}
-
-@media (max-width: 768px) {
-    .navbar {
-        padding: 0 20px;
-    }
-    
-    .featured--horizontal {
-        background: linear-gradient(to top, var(--black) 20%, rgba(0,0,0,0.6) 80%);
-        justify-content: flex-end;
-        padding: 70px 20px 80px;
-        align-items: flex-start;
-    }
-    
-    .featured--name {
-        font-size: clamp(1.75rem, 6vw, 2.5rem); /* 28px a 40px */
-        max-width: 100%;
-        -webkit-line-clamp: 2; /* Reduz para 2 linhas em mobile */
-    }
-    
-    .featured--description {
-        font-size: 1rem; /* 16px */
-        max-width: 100%;
-        min-width: unset;
-        margin-right: 20px;
-        -webkit-line-clamp: 3;
-    }
-    
-    .featured--info {
-        font-size: 1rem;
-    }
-    
-    .btn-watch, .btn-list {
-        font-size: 1rem; /* 16px */
-        padding: 10px 20px;
-        min-height: 40px;
-    }
-    
-    .movieRow h2 {
-        font-size: 1.125rem; /* 18px */
-        margin-left: 20px;
-    }
-    
-    .movieRow--item {
-        width: 120px;
-    }
-    
-    .movieRow--listarea {
-        padding: 15px 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .featured {
-        min-height: 500px;
-    }
-    
-    .featured--horizontal {
-        padding-bottom: 60px;
-    }
-    
-    .featured--name {
-        font-size: 1.5rem; /* 24px */
-        margin-bottom: 15px;
-    }
-    
-    .featured--buttons {
-        gap: 10px;
-    }
-    
-    .btn-watch, .btn-list {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .movieRow--item {
-        width: 100px;
-    }
-    
-    .nav-links {
-        gap: 10px;
-    }
-    
-    .nav-links li a {
-        font-size: 12px;
-    }
-}
-
-/* --- RODAPÉ (Footer) --- */
+/* --- Rodapé --- */
 footer {
     margin: 50px 0;
     text-align: center;
-    padding: 0 20px 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
 }
 
-footer p {
-    margin: 10px 0;
-    font-size: 0.875rem; /* 14px */
-    color: #999;
-    line-height: 1.5;
-}
-
-/* Melhorias para acessibilidade e foco */
-a:focus,
-button:focus {
-    outline: 2px solid var(--white);
-    outline-offset: 2px;
-}
-
-/* Suporte para telas muito largas */
-@media (min-width: 1920px) {
+/* --- RESPONSIVIDADE (Mobile First Approach) --- */
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .logo { font-size: 1.5rem; }
+    
+    .featured { height: 65vh; }
     .featured--horizontal {
-        padding-left: 5%;
-        padding-right: 5%;
+        padding-left: 4%;
+        padding-right: 4%; /* Adicionado para evitar corte de texto */
+        padding-bottom: 20px;
     }
+    
+    .featured--name { font-size: 2.5rem; }
+    
+    .featured--description {
+        max-width: 100%;
+        font-size: 1rem;
+        padding-right: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+    }
+
+    /* --- Botões no Mobile (Um embaixo do outro) --- */
+    .featured--buttons {
+        margin-top: 20px;
+        flex-direction: column; /* Empilha verticalmente */
+        align-items: stretch;   /* Estica para ocupar 100% da largura */
+        gap: 10px;              /* Espaço vertical entre eles */
+    }
+
+    .btn-watch, .btn-list {
+        width: 100%;            /* Força largura total */
+        margin-right: 0;
+        padding: 12px 0;        /* Altura do botão confortável */
+        font-size: 1rem;
+    }
+
+    /* --- Listas no Mobile --- */
+    .lists { margin-top: -50px; }
     
     .movieRow h2 {
-        margin-left: 5%;
+        font-size: 1.1rem;
+        margin-left: 4%;
     }
+
+    .movieRow--listarea { padding-left: 4%; }
     
-    .movieRow--listarea {
-        padding-left: 5%;
-        padding-right: 5%;
+    .movieRow--list { gap: 10px; }
+
+    .movieRow--item {
+        width: var(--card-width-mobile);
+    }
+
+    .movieRow--item:hover {
+        transform: scale(1.02); 
     }
 }
